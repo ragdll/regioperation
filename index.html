@@ -1,0 +1,282 @@
+import React, { useState } from 'react';
+import { ChevronRight, AlertCircle, Info } from 'lucide-react';
+
+const ManualSite = () => {
+  const [activeSection, setActiveSection] = useState('reprint');
+
+  const sections = [
+    { id: 'reprint', title: 'レシート', icon: '📄' },
+    { id: 'return', title: '返品', icon: '↩️' },
+    { id: 'exchange', title: '両替', icon: '💴' },
+    { id: 'payment', title: 'セルフレジトラブル', icon: '⚠️' }
+  ];
+
+  const content = {
+    reprint: {
+      title: 'レシート関連操作',
+      subsections: [
+        {
+          subtitle: '会計直後のリプリント',
+          steps: [
+            'レジ横のバーコードをスキャン',
+            'リプリントボタンを押す',
+            '確定'
+          ]
+        },
+        {
+          subtitle: '会計後の領収書発行(発行済みの場合)',
+          steps: [
+            'レジ横のバーコードをスキャン',
+            '右下のJF確認ボタンを押す',
+            'お客様のレシート下のレシートNoと金額をメモ',
+            '登録ボタン→JF検索を押す',
+            'メモした情報を打ち込む',
+            'レシートが表示されたら内容を確認後、確定ボタンを押す'
+          ]
+        },
+        {
+          subtitle: '返品レシートのリプリント',
+          steps: [
+            'リプリントボタンを押す',
+            'お客様のレシート下にあるバーコードをスキャン',
+            '確定ボタンを押す'
+          ]
+        }
+      ]
+    },
+    return: {
+      title: '返品操作',
+      alert: 'お客様がレシートを持っていない場合は返品できません',
+      steps: [
+        'レジ横のバーコードをスキャン',
+        '返品ボタンを押す',
+        'お客様レシート下のバーコードをスキャン',
+        '商品バーコードをスキャン(複数ある場合は×商品数→商品バーコード)',
+        '金額→小計→合計の順でボタンを押す',
+        'お金が出てくるためお客様へ渡す'
+      ],
+      additional: [
+        {
+          title: 'レシートが必要な場合',
+          content: 'リプリント操作を行う'
+        },
+        {
+          title: 'お客様都合での返品の場合',
+          content: '左上の引き出しにある返品用紙に住所・電話番号・名前を記入してもらう'
+        },
+        {
+          title: '打ちミスの場合',
+          content: '返品用紙と同じところにあるもう1つの用紙も記入'
+        },
+        {
+          title: '100均商品の返品',
+          content: '部門→501→金額の順で入力'
+        }
+      ]
+    },
+    exchange: {
+      title: '両替操作',
+      steps: [
+        'レジ横のバーコードをスキャン',
+        '替ボタンを押す',
+        'お金を入金(小銭→小銭口、お札→お札口)',
+        '画面右下の入金開始ボタンを押す',
+        '両替内容を確認(例:10,000円→5,000円札1枚+1,000円札5枚)',
+        '確定ボタンを押す',
+        'お客様とダブルチェック'
+      ],
+      note: '両替レシートはレジの所に置いておく'
+    },
+    payment: {
+      title: 'セルフレジトラブル対応',
+      subsections: [
+        {
+          subtitle: 'Gyomuca操作',
+          alert: 'レジ側でGyomucaを提示されても必ずセルフレジ側で読み取ってもらう',
+          items: [
+            {
+              title: 'Gyomucaの残高が足りない場合',
+              steps: [
+                '1番レジの手前にあるチャージ機でチャージしてもらう',
+                'チャージ後もう一度Gyomucaを使用し支払いしてもらう'
+              ]
+            },
+            {
+              title: 'レジでGyomucaを読み取ってしまい会計が完了しなかった場合',
+              steps: [
+                '一括取り消しでGyomuca読み取り状態をリセット'
+              ]
+            }
+          ]
+        },
+        {
+          subtitle: '決済トラブル',
+          items: [
+            {
+              title: 'タッチ決済が反応しない場合',
+              steps: [
+                'レジ横のバーコードをスキャン',
+                '会計機の画面のエラー内容を見て順次対応',
+                '左上のPOS会計ボタンを押す',
+                'お客様に再度支払いをしてもらう'
+              ]
+            }
+          ]
+        }
+      ],
+      note: 'レジランプの意味\n黄色点灯：釣銭補充\n黄色点滅：レシート補充\n赤色点灯：レシート空\n赤色点滅：店員呼び出し'
+    }
+  };
+
+  const renderSteps = (steps) => (
+    <ol className="space-y-3">
+      {steps.map((step, index) => (
+        <li key={index} className="flex items-start gap-3">
+          <span className="flex-shrink-0 w-7 h-7 bg-blue-500 text-white rounded-full flex items-center justify-center text-sm font-semibold">
+            {index + 1}
+          </span>
+          <span className="pt-1 text-gray-700">{step}</span>
+        </li>
+      ))}
+    </ol>
+  );
+
+  const currentContent = content[activeSection];
+
+  return (
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100">
+      <div className="max-w-6xl mx-auto p-6">
+        {/* ヘッダー */}
+        <div className="bg-white rounded-2xl shadow-lg p-6 mb-6">
+          <h1 className="text-3xl font-bold text-gray-800 mb-2">レジ操作マニュアル</h1>
+        </div>
+
+        <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
+          {/* サイドメニュー */}
+          <div className="lg:col-span-1">
+            <div className="bg-white rounded-2xl shadow-lg p-4 sticky top-6">
+              <h2 className="text-lg font-semibold text-gray-700 mb-4">操作一覧</h2>
+              <nav className="space-y-2">
+                {sections.map((section) => (
+                  <button
+                    key={section.id}
+                    onClick={() => setActiveSection(section.id)}
+                    className={`w-full flex items-center gap-3 p-3 rounded-lg transition-all ${
+                      activeSection === section.id
+                        ? 'bg-blue-500 text-white shadow-md'
+                        : 'bg-gray-50 text-gray-700 hover:bg-gray-100'
+                    }`}
+                  >
+                    <span className="text-2xl">{section.icon}</span>
+                    <span className="font-medium">{section.title}</span>
+                    {activeSection === section.id && <ChevronRight className="ml-auto" size={20} />}
+                  </button>
+                ))}
+              </nav>
+            </div>
+          </div>
+
+          {/* メインコンテンツ */}
+          <div className="lg:col-span-3">
+            <div className="bg-white rounded-2xl shadow-lg p-8">
+              <h2 className="text-2xl font-bold text-gray-800 mb-6 flex items-center gap-3">
+                <span className="text-3xl">{sections.find(s => s.id === activeSection)?.icon}</span>
+                {currentContent.title}
+              </h2>
+
+              {currentContent.alert && (
+                <div className="bg-red-50 border-l-4 border-red-500 p-4 mb-6 rounded-r-lg">
+                  <div className="flex items-start gap-3">
+                    <AlertCircle className="text-red-500 flex-shrink-0 mt-0.5" size={20} />
+                    <p className="text-red-700 font-semibold">{currentContent.alert}</p>
+                  </div>
+                </div>
+              )}
+
+              {currentContent.subsections ? (
+                <div className="space-y-8">
+                  {currentContent.subsections.map((subsection, index) => (
+                    <div key={index} className="border-l-4 border-blue-300 pl-6">
+                      <h3 className="text-xl font-semibold text-gray-700 mb-4">
+                        {subsection.subtitle}
+                      </h3>
+                      
+                      {subsection.alert && (
+                        <div className="mb-4 bg-red-50 border-l-4 border-red-500 p-4 rounded-r-lg">
+                          <div className="flex items-start gap-3">
+                            <AlertCircle className="text-red-500 flex-shrink-0 mt-0.5" size={20} />
+                            <p className="text-red-700 font-semibold">{subsection.alert}</p>
+                          </div>
+                        </div>
+                      )}
+                      
+                      {subsection.steps && renderSteps(subsection.steps)}
+                      
+                      {subsection.items && (
+                        <div className="space-y-6">
+                          {subsection.items.map((item, itemIndex) => (
+                            <div key={itemIndex} className="bg-gray-50 rounded-lg p-4">
+                              <h4 className="font-semibold text-gray-800 mb-3">{item.title}</h4>
+                              {renderSteps(item.steps)}
+                            </div>
+                          ))}
+                        </div>
+                      )}
+                      
+                      {subsection.note && (
+                        <div className="mt-4 bg-yellow-50 border border-yellow-200 rounded-lg p-3">
+                          <div className="flex items-start gap-2">
+                            <Info className="text-yellow-600 flex-shrink-0 mt-0.5" size={18} />
+                            <p className="text-yellow-800 text-sm">{subsection.note}</p>
+                          </div>
+                        </div>
+                      )}
+                    </div>
+                  ))}
+                  
+                  {currentContent.note && (
+                    <div className="mt-6 bg-gray-50 border border-gray-200 rounded-lg p-4">
+                      <div className="flex items-start gap-2">
+                        <Info className="text-gray-600 flex-shrink-0 mt-0.5" size={18} />
+                        <p className="text-gray-700 whitespace-pre-line">{currentContent.note}</p>
+                      </div>
+                    </div>
+                  )}
+                </div>
+              ) : (
+                <>
+                  {renderSteps(currentContent.steps)}
+                  
+                  {currentContent.additional && (
+                    <div className="mt-8 space-y-4">
+                      <h3 className="text-lg font-semibold text-gray-700 border-b-2 border-gray-200 pb-2">
+                        追加対応
+                      </h3>
+                      {currentContent.additional.map((item, index) => (
+                        <div key={index} className="bg-blue-50 rounded-lg p-4">
+                          <h4 className="font-semibold text-blue-900 mb-2">{item.title}</h4>
+                          <p className="text-blue-800">{item.content}</p>
+                        </div>
+                      ))}
+                    </div>
+                  )}
+
+                  {currentContent.note && (
+                    <div className="mt-6 bg-gray-50 border border-gray-200 rounded-lg p-4">
+                      <div className="flex items-start gap-2">
+                        <Info className="text-gray-600 flex-shrink-0 mt-0.5" size={18} />
+                        <p className="text-gray-700">{currentContent.note}</p>
+                      </div>
+                    </div>
+                  )}
+                </>
+              )}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default ManualSite;
