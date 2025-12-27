@@ -1,0 +1,649 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>レジ操作マニュアル</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica', 'Arial', sans-serif;
+            background: linear-gradient(to bottom right, #eff6ff, #e0e7ff);
+            min-height: 100vh;
+            padding: 1rem;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .header {
+            background: white;
+            border-radius: 1rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .header h1 {
+            font-size: 1.875rem;
+            font-weight: bold;
+            color: #1f2937;
+        }
+
+        .main-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1.5rem;
+        }
+
+        @media (min-width: 1024px) {
+            .main-grid {
+                grid-template-columns: 250px 1fr;
+            }
+        }
+
+        .sidebar {
+            background: white;
+            border-radius: 1rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 1rem;
+        }
+
+        @media (min-width: 1024px) {
+            .sidebar {
+                position: sticky;
+                top: 1.5rem;
+                height: fit-content;
+            }
+        }
+
+        .sidebar h2 {
+            font-size: 1.125rem;
+            font-weight: 600;
+            color: #374151;
+            margin-bottom: 1rem;
+        }
+
+        .nav-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .nav-button {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.75rem;
+            border-radius: 0.5rem;
+            border: none;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-size: 1rem;
+            width: 100%;
+            text-align: left;
+            background: #f9fafb;
+            color: #374151;
+        }
+
+        .nav-button:hover {
+            background: #f3f4f6;
+        }
+
+        .nav-button.active {
+            background: #3b82f6;
+            color: white;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .nav-button .icon {
+            font-size: 1.5rem;
+        }
+
+        .content-area {
+            background: white;
+            border-radius: 1rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 2rem;
+        }
+
+        .content-title {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #1f2937;
+            margin-bottom: 1.5rem;
+        }
+
+        .content-title .icon {
+            font-size: 1.875rem;
+        }
+
+        .alert {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.75rem;
+            padding: 1rem;
+            margin-bottom: 1.5rem;
+            border-radius: 0.5rem;
+        }
+
+        .alert-red {
+            background: #fef2f2;
+            border-left: 4px solid #ef4444;
+        }
+
+        .alert-red .alert-text {
+            color: #991b1b;
+            font-weight: 600;
+        }
+
+        .alert-icon {
+            flex-shrink: 0;
+            margin-top: 0.125rem;
+        }
+
+        .sections {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+
+        .section {
+            border-left: 4px solid #93c5fd;
+            padding-left: 1.5rem;
+        }
+
+        .section-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: #374151;
+            margin-bottom: 1rem;
+        }
+
+        .steps {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+            list-style: none;
+        }
+
+        .step {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.75rem;
+        }
+
+        .step-number {
+            flex-shrink: 0;
+            width: 1.75rem;
+            height: 1.75rem;
+            background: #3b82f6;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.875rem;
+            font-weight: 600;
+        }
+
+        .step-text {
+            padding-top: 0.25rem;
+            color: #374151;
+        }
+
+        .items {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .item {
+            background: #f9fafb;
+            border-radius: 0.5rem;
+            padding: 1rem;
+        }
+
+        .item-title {
+            font-weight: 600;
+            color: #1f2937;
+            margin-bottom: 0.75rem;
+        }
+
+        .additional {
+            margin-top: 2rem;
+        }
+
+        .additional-title {
+            font-size: 1.125rem;
+            font-weight: 600;
+            color: #374151;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid #e5e7eb;
+            margin-bottom: 1rem;
+        }
+
+        .additional-items {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .additional-item {
+            background: #eff6ff;
+            border-radius: 0.5rem;
+            padding: 1rem;
+        }
+
+        .additional-item-title {
+            font-weight: 600;
+            color: #1e3a8a;
+            margin-bottom: 0.5rem;
+        }
+
+        .additional-item-content {
+            color: #1e40af;
+        }
+
+        .note {
+            margin-top: 1.5rem;
+            background: #f9fafb;
+            border: 1px solid #e5e7eb;
+            border-radius: 0.5rem;
+            padding: 1rem;
+            display: flex;
+            align-items: flex-start;
+            gap: 0.5rem;
+        }
+
+        .note-icon {
+            flex-shrink: 0;
+            margin-top: 0.125rem;
+            color: #4b5563;
+        }
+
+        .note-text {
+            color: #374151;
+            white-space: pre-line;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        @media (max-width: 640px) {
+            body {
+                padding: 0.5rem;
+            }
+
+            .header {
+                padding: 1rem;
+            }
+
+            .header h1 {
+                font-size: 1.5rem;
+            }
+
+            .content-area {
+                padding: 1rem;
+            }
+
+            .content-title {
+                font-size: 1.25rem;
+            }
+
+            .section {
+                padding-left: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- ヘッダー -->
+        <div class="header">
+            <h1>レジ操作マニュアル</h1>
+        </div>
+
+        <div class="main-grid">
+            <!-- サイドメニュー -->
+            <div class="sidebar">
+                <h2>操作一覧</h2>
+                <div class="nav-buttons">
+                    <button class="nav-button active" onclick="showSection('reprint')">
+                        <span class="icon">📄</span>
+                        <span>レシート</span>
+                    </button>
+                    <button class="nav-button" onclick="showSection('return')">
+                        <span class="icon">↩️</span>
+                        <span>返品</span>
+                    </button>
+                    <button class="nav-button" onclick="showSection('exchange')">
+                        <span class="icon">💴</span>
+                        <span>両替</span>
+                    </button>
+                    <button class="nav-button" onclick="showSection('payment')">
+                        <span class="icon">⚠️</span>
+                        <span>セルフレジトラブル</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- メインコンテンツ -->
+            <div class="content-area">
+                <!-- レシート -->
+                <div id="reprint" class="content-section">
+                    <div class="content-title">
+                        <span class="icon">📄</span>
+                        <span>レシート関連操作</span>
+                    </div>
+
+                    <div class="sections">
+                        <div class="section">
+                            <h3 class="section-title">会計直後のリプリント</h3>
+                            <ol class="steps">
+                                <li class="step">
+                                    <span class="step-number">1</span>
+                                    <span class="step-text">レジ横のバーコードをスキャン</span>
+                                </li>
+                                <li class="step">
+                                    <span class="step-number">2</span>
+                                    <span class="step-text">リプリントボタンを押す</span>
+                                </li>
+                                <li class="step">
+                                    <span class="step-number">3</span>
+                                    <span class="step-text">確定</span>
+                                </li>
+                            </ol>
+                        </div>
+
+                        <div class="section">
+                            <h3 class="section-title">会計後の領収書発行(発行済みの場合)</h3>
+                            <ol class="steps">
+                                <li class="step">
+                                    <span class="step-number">1</span>
+                                    <span class="step-text">レジ横のバーコードをスキャン</span>
+                                </li>
+                                <li class="step">
+                                    <span class="step-number">2</span>
+                                    <span class="step-text">右下のJF確認ボタンを押す</span>
+                                </li>
+                                <li class="step">
+                                    <span class="step-number">3</span>
+                                    <span class="step-text">お客様のレシート下のレシートNoと金額をメモ</span>
+                                </li>
+                                <li class="step">
+                                    <span class="step-number">4</span>
+                                    <span class="step-text">登録ボタン→JF検索を押す</span>
+                                </li>
+                                <li class="step">
+                                    <span class="step-number">5</span>
+                                    <span class="step-text">メモした情報を打ち込む</span>
+                                </li>
+                                <li class="step">
+                                    <span class="step-number">6</span>
+                                    <span class="step-text">レシートが表示されたら内容を確認後、確定ボタンを押す</span>
+                                </li>
+                            </ol>
+                        </div>
+
+                        <div class="section">
+                            <h3 class="section-title">返品レシートのリプリント</h3>
+                            <ol class="steps">
+                                <li class="step">
+                                    <span class="step-number">1</span>
+                                    <span class="step-text">リプリントボタンを押す</span>
+                                </li>
+                                <li class="step">
+                                    <span class="step-number">2</span>
+                                    <span class="step-text">お客様のレシート下にあるバーコードをスキャン</span>
+                                </li>
+                                <li class="step">
+                                    <span class="step-number">3</span>
+                                    <span class="step-text">確定ボタンを押す</span>
+                                </li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 返品 -->
+                <div id="return" class="content-section hidden">
+                    <div class="content-title">
+                        <span class="icon">↩️</span>
+                        <span>返品操作</span>
+                    </div>
+
+                    <div class="alert alert-red">
+                        <svg class="alert-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#ef4444" stroke-width="2">
+                            <circle cx="12" cy="12" r="10"></circle>
+                            <line x1="12" y1="8" x2="12" y2="12"></line>
+                            <line x1="12" y1="16" x2="12.01" y2="16"></line>
+                        </svg>
+                        <p class="alert-text">お客様がレシートを持っていない場合は返品できません</p>
+                    </div>
+
+                    <ol class="steps">
+                        <li class="step">
+                            <span class="step-number">1</span>
+                            <span class="step-text">レジ横のバーコードをスキャン</span>
+                        </li>
+                        <li class="step">
+                            <span class="step-number">2</span>
+                            <span class="step-text">返品ボタンを押す</span>
+                        </li>
+                        <li class="step">
+                            <span class="step-number">3</span>
+                            <span class="step-text">お客様レシート下のバーコードをスキャン</span>
+                        </li>
+                        <li class="step">
+                            <span class="step-number">4</span>
+                            <span class="step-text">商品バーコードをスキャン(複数ある場合は×商品数→商品バーコード)</span>
+                        </li>
+                        <li class="step">
+                            <span class="step-number">5</span>
+                            <span class="step-text">金額→小計→合計の順でボタンを押す</span>
+                        </li>
+                        <li class="step">
+                            <span class="step-number">6</span>
+                            <span class="step-text">お金が出てくるためお客様へ渡す</span>
+                        </li>
+                    </ol>
+
+                    <div class="additional">
+                        <h3 class="additional-title">追加対応</h3>
+                        <div class="additional-items">
+                            <div class="additional-item">
+                                <h4 class="additional-item-title">レシートが必要な場合</h4>
+                                <p class="additional-item-content">リプリント操作を行う</p>
+                            </div>
+                            <div class="additional-item">
+                                <h4 class="additional-item-title">お客様都合での返品の場合</h4>
+                                <p class="additional-item-content">左上の引き出しにある返品用紙に住所・電話番号・名前を記入してもらう</p>
+                            </div>
+                            <div class="additional-item">
+                                <h4 class="additional-item-title">打ちミスの場合</h4>
+                                <p class="additional-item-content">返品用紙と同じところにあるもう1つの用紙も記入</p>
+                            </div>
+                            <div class="additional-item">
+                                <h4 class="additional-item-title">100均商品の返品</h4>
+                                <p class="additional-item-content">部門→501→金額の順で入力</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 両替 -->
+                <div id="exchange" class="content-section hidden">
+                    <div class="content-title">
+                        <span class="icon">💴</span>
+                        <span>両替操作</span>
+                    </div>
+
+                    <ol class="steps">
+                        <li class="step">
+                            <span class="step-number">1</span>
+                            <span class="step-text">レジ横のバーコードをスキャン</span>
+                        </li>
+                        <li class="step">
+                            <span class="step-number">2</span>
+                            <span class="step-text">替ボタンを押す</span>
+                        </li>
+                        <li class="step">
+                            <span class="step-number">3</span>
+                            <span class="step-text">お金を入金(小銭→小銭口、お札→お札口)</span>
+                        </li>
+                        <li class="step">
+                            <span class="step-number">4</span>
+                            <span class="step-text">画面右下の入金開始ボタンを押す</span>
+                        </li>
+                        <li class="step">
+                            <span class="step-number">5</span>
+                            <span class="step-text">両替内容を確認(例:10,000円→5,000円札1枚+1,000円札5枚)</span>
+                        </li>
+                        <li class="step">
+                            <span class="step-number">6</span>
+                            <span class="step-text">確定ボタンを押す</span>
+                        </li>
+                        <li class="step">
+                            <span class="step-number">7</span>
+                            <span class="step-text">お客様とダブルチェック</span>
+                        </li>
+                    </ol>
+
+                    <div class="note">
+                        <svg class="note-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="12" cy="12" r="10"></circle>
+                            <line x1="12" y1="16" x2="12" y2="12"></line>
+                            <line x1="12" y1="8" x2="12.01" y2="8"></line>
+                        </svg>
+                        <p class="note-text">両替レシートはレジの所に置いておく</p>
+                    </div>
+                </div>
+
+                <!-- セルフレジトラブル -->
+                <div id="payment" class="content-section hidden">
+                    <div class="content-title">
+                        <span class="icon">⚠️</span>
+                        <span>セルフレジトラブル対応</span>
+                    </div>
+
+                    <div class="sections">
+                        <div class="section">
+                            <h3 class="section-title">Gyomuca操作</h3>
+                            
+                            <div class="alert alert-red">
+                                <svg class="alert-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#ef4444" stroke-width="2">
+                                    <circle cx="12" cy="12" r="10"></circle>
+                                    <line x1="12" y1="8" x2="12" y2="12"></line>
+                                    <line x1="12" y1="16" x2="12.01" y2="16"></line>
+                                </svg>
+                                <p class="alert-text">レジ側でGyomucaを提示されても必ずセルフレジ側で読み取ってもらう</p>
+                            </div>
+
+                            <div class="items">
+                                <div class="item">
+                                    <h4 class="item-title">Gyomucaの残高が足りない場合</h4>
+                                    <ol class="steps">
+                                        <li class="step">
+                                            <span class="step-number">1</span>
+                                            <span class="step-text">1番レジの手前にあるチャージ機でチャージしてもらう</span>
+                                        </li>
+                                        <li class="step">
+                                            <span class="step-number">2</span>
+                                            <span class="step-text">チャージ後もう一度Gyomucaを使用し支払いしてもらう</span>
+                                        </li>
+                                    </ol>
+                                </div>
+
+                                <div class="item">
+                                    <h4 class="item-title">レジでGyomucaを読み取ってしまい会計が完了しなかった場合</h4>
+                                    <ol class="steps">
+                                        <li class="step">
+                                            <span class="step-number">1</span>
+                                            <span class="step-text">一括取り消しでGyomuca読み取り状態をリセット</span>
+                                        </li>
+                                    </ol>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="section">
+                            <h3 class="section-title">決済トラブル</h3>
+                            
+                            <div class="items">
+                                <div class="item">
+                                    <h4 class="item-title">タッチ決済が反応しない場合</h4>
+                                    <ol class="steps">
+                                        <li class="step">
+                                            <span class="step-number">1</span>
+                                            <span class="step-text">レジ横のバーコードをスキャン</span>
+                                        </li>
+                                        <li class="step">
+                                            <span class="step-number">2</span>
+                                            <span class="step-text">会計機の画面のエラー内容を見て順次対応</span>
+                                        </li>
+                                        <li class="step">
+                                            <span class="step-number">3</span>
+                                            <span class="step-text">左上のPOS会計ボタンを押す</span>
+                                        </li>
+                                        <li class="step">
+                                            <span class="step-number">4</span>
+                                            <span class="step-text">お客様に再度支払いをしてもらう</span>
+                                        </li>
+                                    </ol>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="note">
+                        <svg class="note-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="12" cy="12" r="10"></circle>
+                            <line x1="12" y1="16" x2="12" y2="12"></line>
+                            <line x1="12" y1="8" x2="12.01" y2="8"></line>
+                        </svg>
+                        <p class="note-text">レジランプの意味
+黄色点灯：釣銭補充
+黄色点滅：レシート補充
+赤色点灯：レシート空
+赤色点滅：店員呼び出し</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function showSection(sectionId) {
+            // すべてのセクションを非表示
+            const sections = document.querySelectorAll('.content-section');
+            sections.forEach(section => {
+                section.classList.add('hidden');
+            });
+
+            // すべてのボタンの active クラスを削除
+            const buttons = document.querySelectorAll('.nav-button');
+            buttons.forEach(button => {
+                button.classList.remove('active');
+            });
+
+            // 選択されたセクションを表示
+            document.getElementById(sectionId).classList.remove('hidden');
+
+            // 選択されたボタンに active クラスを追加
+            event.currentTarget.classList.add('active');
+        }
+    </script>
+</body>
+</html>
