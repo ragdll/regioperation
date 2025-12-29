@@ -1,320 +1,725 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>レジ操作マニュアル</title>
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>レジ操作マニュアル</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="container">
-        <div class="header">
-            <h1>レジ操作マニュアル</h1>
-        </div>
+  <div class="container">
+    <!-- Header -->
+    <div class="header">
+      <h1>レジ操作マニュアル</h1>
+    </div>
 
-        <div class="main-grid">
-            <div class="sidebar">
-                <h2>操作一覧</h2>
-                <div class="nav-buttons">
-                    <button class="nav-button active" onclick="showSection('reprint', this)">
-                        <span class="icon">📄</span>
-                        <span>レシート</span>
-                    </button>
-                    <button class="nav-button" onclick="showSection('return', this)">
-                        <span class="icon">↩️</span>
-                        <span>返品</span>
-                    </button>
-                    <button class="nav-button" onclick="showSection('exchange', this)">
-                        <span class="icon">💴</span>
-                        <span>両替</span>
-                    </button>
-                    <button class="nav-button" onclick="showSection('payment', this)">
-                        <span class="icon">⚠️</span>
-                        <span>セルフレジトラブル</span>
-                    </button>
-                </div>
+    <div class="grid">
+      <!-- Sidebar -->
+      <div class="sidebar">
+        <h2>操作一覧</h2>
+        <nav class="nav">
+          <button class="nav-button active" data-section="reprint">
+            <span class="nav-icon">📄</span>
+            <span>レシート</span>
+          </button>
+          <button class="nav-button" data-section="return">
+            <span class="nav-icon">↩️</span>
+            <span>返品</span>
+          </button>
+          <button class="nav-button" data-section="money">
+            <span class="nav-icon">💰</span>
+            <span>お金のトラブル</span>
+          </button>
+          <button class="nav-button" data-section="register">
+            <span class="nav-icon">🖥️</span>
+            <span>レジ</span>
+          </button>
+          <button class="nav-button" data-section="payment">
+            <span class="nav-icon">⚠️</span>
+            <span>セルフレジ</span>
+          </button>
+        </nav>
+      </div>
+
+      <!-- Main Content -->
+      <div>
+        <!-- レシート -->
+        <div class="content-card content-section active" id="reprint">
+          <div class="content-title">
+            <span class="content-title-icon">📄</span>
+            レシート関連操作
+          </div>
+
+          <div class="subsections">
+            <div class="subsection">
+              <h3 class="subsection-title">会計直後のリプリント</h3>
+              <ol class="steps">
+                <li class="step">
+                  <span class="step-number">1</span>
+                  <span class="step-text">レジ横のバーコードをスキャン</span>
+                </li>
+                <li class="step">
+                  <span class="step-number">2</span>
+                  <span class="step-text">リプリントボタンを押す</span>
+                </li>
+                <li class="step">
+                  <span class="step-number">3</span>
+                  <span class="step-text">確定</span>
+                </li>
+              </ol>
             </div>
 
-            <div class="content-area">
-                <div id="reprint" class="content-section">
-                    <div class="content-title">
-                        <span class="icon">📄</span>
-                        <span>レシート関連操作</span>
+            <div class="subsection">
+              <h3 class="subsection-title">会計後の領収書発行(発行済みの場合)</h3>
+              <ol class="steps">
+                <li class="step">
+                  <span class="step-number">1</span>
+                  <span class="step-text">レジ横のバーコードをスキャン</span>
+                </li>
+                <li class="step">
+                  <span class="step-number">2</span>
+                  <span class="step-text">右下のJF確認ボタンを押す</span>
+                </li>
+                <li class="step">
+                  <span class="step-number">3</span>
+                  <span class="step-text">お客様のレシート下のレシートNoと金額をメモ</span>
+                </li>
+                <li class="step">
+                  <span class="step-number">4</span>
+                  <span class="step-text">登録ボタン→JF検索を押す</span>
+                </li>
+                <li class="step">
+                  <span class="step-number">5</span>
+                  <span class="step-text">メモした情報を打ち込む</span>
+                </li>
+                <li class="step">
+                  <span class="step-number">6</span>
+                  <span class="step-text">レシートが表示されたら内容を確認後、確定ボタンを押す</span>
+                </li>
+              </ol>
+            </div>
+
+            <div class="subsection">
+              <h3 class="subsection-title">返品レシートのリプリント</h3>
+              <ol class="steps">
+                <li class="step">
+                  <span class="step-number">1</span>
+                  <span class="step-text">リプリントボタンを押す</span>
+                </li>
+                <li class="step">
+                  <span class="step-number">2</span>
+                  <span class="step-text">お客様のレシート下にあるバーコードをスキャン</span>
+                </li>
+                <li class="step">
+                  <span class="step-number">3</span>
+                  <span class="step-text">確定ボタンを押す</span>
+                </li>
+              </ol>
+            </div>
+          </div>
+        </div>
+
+        <!-- 返品 -->
+        <div class="content-card content-section" id="return">
+          <div class="content-title">
+            <span class="content-title-icon">↩️</span>
+            返品操作
+          </div>
+
+          <div class="alert alert-red">
+            <div class="alert-icon">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="10"></circle>
+                <line x1="12" y1="8" x2="12" y2="12"></line>
+                <line x1="12" y1="16" x2="12.01" y2="16"></line>
+              </svg>
+            </div>
+            <p>お客様がレシートを持っていない場合は返品できません</p>
+          </div>
+
+          <ol class="steps">
+            <li class="step">
+              <span class="step-number">1</span>
+              <span class="step-text">レジ横のバーコードをスキャン</span>
+            </li>
+            <li class="step">
+              <span class="step-number">2</span>
+              <span class="step-text">返品ボタンを押す</span>
+            </li>
+            <li class="step">
+              <span class="step-number">3</span>
+              <span class="step-text">お客様レシート下のバーコードをスキャン</span>
+            </li>
+            <li class="step">
+              <span class="step-number">4</span>
+              <span class="step-text">商品バーコードをスキャン(複数ある場合は×商品数→商品バーコード)</span>
+            </li>
+            <li class="step">
+              <span class="step-number">5</span>
+              <span class="step-text">金額→小計→合計の順でボタンを押す</span>
+            </li>
+            <li class="step">
+              <span class="step-number">6</span>
+              <span class="step-text">お金が出てくるためお客様へ渡す</span>
+            </li>
+          </ol>
+
+          <div class="additional">
+            <h3 class="additional-title">追加対応</h3>
+            
+            <div class="additional-item">
+              <h4>レシートが必要な場合</h4>
+              <p>リプリント操作を行う</p>
+            </div>
+
+            <div class="additional-item">
+              <h4>お客様都合での返品の場合</h4>
+              <p>左上の引き出しにある返品用紙に住所・電話番号・名前を記入してもらう</p>
+            </div>
+
+            <div class="additional-item">
+              <h4>打ちミスの場合</h4>
+              <p>返品用紙と同じところにあるもう1つの用紙も記入</p>
+            </div>
+
+            <div class="additional-item">
+              <h4>100均商品の返品</h4>
+              <p>501→部門→金額の順で入力</p>
+              <div class="note">
+                <div class="note-icon">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="12" cy="12" r="10"></circle>
+                    <line x1="12" y1="16" x2="12" y2="12"></line>
+                    <line x1="12" y1="8" x2="12.01" y2="8"></line>
+                  </svg>
+                </div>
+                <p>複数打ちたい場合は501を打つ前に数量×をしてから同じ流れ</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- お金のトラブル -->
+        <div class="content-card content-section" id="money">
+          <div class="content-title">
+            <span class="content-title-icon">💰</span>
+            お金のトラブル
+          </div>
+
+          <div class="subsections">
+            <div class="subsection">
+              <h3 class="subsection-title">両替</h3>
+              <ol class="steps">
+                <li class="step">
+                  <span class="step-number">1</span>
+                  <span class="step-text">レジ横のバーコードをスキャン</span>
+                </li>
+                <li class="step">
+                  <span class="step-number">2</span>
+                  <span class="step-text">替ボタンを押す</span>
+                </li>
+                <li class="step">
+                  <span class="step-number">3</span>
+                  <span class="step-text">お金を入金(小銭→小銭口、お札→お札口)</span>
+                </li>
+                <li class="step">
+                  <span class="step-number">4</span>
+                  <span class="step-text">画面右下の入金開始ボタンを押す</span>
+                </li>
+                <li class="step">
+                  <span class="step-number">5</span>
+                  <span class="step-text">両替内容を確認(例:10,000円→5,000円札1枚+1,000円札5枚)</span>
+                </li>
+                <li class="step">
+                  <span class="step-number">6</span>
+                  <span class="step-text">確定ボタンを押す</span>
+                </li>
+                <li class="step">
+                  <span class="step-number">7</span>
+                  <span class="step-text">お客様とダブルチェック</span>
+                </li>
+              </ol>
+              <div class="note">
+                <div class="note-icon">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="12" cy="12" r="10"></circle>
+                    <line x1="12" y1="16" x2="12" y2="12"></line>
+                    <line x1="12" y1="8" x2="12.01" y2="8"></line>
+                  </svg>
+                </div>
+                <p>両替レシートはレジの所に置いておく</p>
+              </div>
+            </div>
+
+            <div class="subsection">
+              <h3 class="subsection-title">お金づまり</h3>
+              <div class="items">
+                <div class="item">
+                  <h4 class="item-title">お金づまり対応</h4>
+                  <ol class="steps">
+                    <li class="step">
+                      <span class="step-number">1</span>
+                      <span class="step-text">左下の引き出しから①の鍵を出す</span>
+                    </li>
+                    <li class="step">
+                      <span class="step-number">2</span>
+                      <span class="step-text">小銭づまりなら小銭口の左パネル、お札づまりならお札口の左パネルに表示された数字の場所を確認(その際④の鍵or⑤の鍵を使用)</span>
+                    </li>
+                    <li class="step">
+                      <span class="step-number">3</span>
+                      <span class="step-text">詰まった小銭orお札を取り出しお客様に渡す</span>
+                    </li>
+                    <li class="step">
+                      <span class="step-number">4</span>
+                      <span class="step-text">レジ横のバーコードをスキャン</span>
+                    </li>
+                    <li class="step">
+                      <span class="step-number">5</span>
+                      <span class="step-text">在高確認で???になっていないか確認</span>
+                    </li>
+                    <li class="step">
+                      <span class="step-number">6</span>
+                      <span class="step-text">???になっていなければ終了→会計POS宣言でセルフレジを閉める</span>
+                    </li>
+                    <li class="step">
+                      <span class="step-number">7</span>
+                      <span class="step-text">???なら小銭またはお札を一括回収してもう一度入れ直す</span>
+                    </li>
+                    <li class="step">
+                      <span class="step-number">8</span>
+                      <span class="step-text">入れ直した後もう一度在高確認をし???ではなく実数に戻っていればok</span>
+                    </li>
+                  </ol>
+                  <div class="note">
+                    <div class="note-icon">
+                      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="10"></circle>
+                        <line x1="12" y1="16" x2="12" y2="12"></line>
+                        <line x1="12" y1="8" x2="12.01" y2="8"></line>
+                      </svg>
                     </div>
+                    <p>お客様に渡す際は、レシートかなにか金額が確認できるもので金額を確認してお渡しすること</p>
+                  </div>
+                </div>
+              </div>
+            </div>
 
-                    <div class="sections">
-                        <div class="section">
-                            <h3 class="section-title">会計直後のリプリント</h3>
-                            <ol class="steps">
-                                <li class="step">
-                                    <span class="step-number">1</span>
-                                    <span class="step-text">レジ横のバーコードをスキャン</span>
-                                </li>
-                                <li class="step">
-                                    <span class="step-number">2</span>
-                                    <span class="step-text">リプリントボタンを押す</span>
-                                </li>
-                                <li class="step">
-                                    <span class="step-number">3</span>
-                                    <span class="step-text">確定</span>
-                                </li>
-                            </ol>
-                        </div>
+            <div class="subsection">
+              <h3 class="subsection-title">釣銭がなくなりそうな場合</h3>
+              <ol class="steps">
+                <li class="step">
+                  <span class="step-number">1</span>
+                  <span class="step-text">棒金袋にない金額を入れる場合：金庫からお金を持ってきて必要な分だけ補充</span>
+                </li>
+                <li class="step">
+                  <span class="step-number">2</span>
+                  <span class="step-text">例1. 1000円を20枚補充：万札2枚抜く</span>
+                </li>
+                <li class="step">
+                  <span class="step-number">3</span>
+                  <span class="step-text">例2. 500円を20枚補充：万札1枚抜く</span>
+                </li>
+              </ol>
+              <div class="note">
+                <div class="note-icon">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="12" cy="12" r="10"></circle>
+                    <line x1="12" y1="16" x2="12" y2="12"></line>
+                    <line x1="12" y1="8" x2="12.01" y2="8"></line>
+                  </svg>
+                </div>
+                <p>手順は両替参照</p>
+              </div>
+            </div>
 
-                        <div class="section">
-                            <h3 class="section-title">会計後の領収書発行(発行済みの場合)</h3>
-                            <ol class="steps">
-                                <li class="step">
-                                    <span class="step-number">1</span>
-                                    <span class="step-text">レジ横のバーコードをスキャン</span>
-                                </li>
-                                <li class="step">
-                                    <span class="step-number">2</span>
-                                    <span class="step-text">右下のJF確認ボタンを押す</span>
-                                </li>
-                                <li class="step">
-                                    <span class="step-number">3</span>
-                                    <span class="step-text">お客様のレシート下のレシートNoと金額をメモ</span>
-                                </li>
-                                <li class="step">
-                                    <span class="step-number">4</span>
-                                    <span class="step-text">登録ボタン→JF検索を押す</span>
-                                </li>
-                                <li class="step">
-                                    <span class="step-number">5</span>
-                                    <span class="step-text">メモした情報を打ち込む</span>
-                                </li>
-                                <li class="step">
-                                    <span class="step-number">6</span>
-                                    <span class="step-text">レシートが表示されたら内容を確認後、確定ボタンを押す</span>
-                                </li>
-                            </ol>
-                        </div>
-
-                        <div class="section">
-                            <h3 class="section-title">返品レシートのリプリント</h3>
-                            <ol class="steps">
-                                <li class="step">
-                                    <span class="step-number">1</span>
-                                    <span class="step-text">リプリントボタンを押す</span>
-                                </li>
-                                <li class="step">
-                                    <span class="step-number">2</span>
-                                    <span class="step-text">お客様のレシート下にあるバーコードをスキャン</span>
-                                </li>
-                                <li class="step">
-                                    <span class="step-number">3</span>
-                                    <span class="step-text">確定ボタンを押す</span>
-                                </li>
-                            </ol>
-                        </div>
+            <div class="subsection">
+              <h3 class="subsection-title">オーバーフロー</h3>
+              <div class="items">
+                <div class="item">
+                  <h4 class="item-title">小銭のオーバーフロー</h4>
+                  <ol class="steps">
+                    <li class="step">
+                      <span class="step-number">1</span>
+                      <span class="step-text">左上の引き出しから①と②の鍵を取り出す</span>
+                    </li>
+                    <li class="step">
+                      <span class="step-number">2</span>
+                      <span class="step-text">セルフレジを開け②の鍵をさし、管理へ回す</span>
+                    </li>
+                    <li class="step">
+                      <span class="step-number">3</span>
+                      <span class="step-text">機能→1.コベツカイシュウ→実行→在高で金種を選ぶ</span>
+                    </li>
+                    <li class="step">
+                      <span class="step-number">4</span>
+                      <span class="step-text">実行で10枚ずつ回収し、コインケースへ入れ回収したレジ番号の棒金袋に入れる</span>
+                    </li>
+                  </ol>
+                  <div class="note">
+                    <div class="note-icon">
+                      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="10"></circle>
+                        <line x1="12" y1="16" x2="12" y2="12"></line>
+                        <line x1="12" y1="8" x2="12.01" y2="8"></line>
+                      </svg>
                     </div>
+                    <p>コインケースは1,2番レジの左下にあります</p>
+                  </div>
                 </div>
 
-                <div id="return" class="content-section hidden">
-                    <div class="content-title">
-                        <span class="icon">↩️</span>
-                        <span>返品操作</span>
-                    </div>
+                <div class="item">
+                  <h4 class="item-title">お札のオーバーフロー</h4>
+                  <ol class="steps">
+                    <li class="step">
+                      <span class="step-number">1</span>
+                      <span class="step-text">左上の引き出しから①と②の鍵を取り出す</span>
+                    </li>
+                    <li class="step">
+                      <span class="step-number">2</span>
+                      <span class="step-text">セルフレジを開け②の鍵をさし、管理へ回す</span>
+                    </li>
+                    <li class="step">
+                      <span class="step-number">3</span>
+                      <span class="step-text">機能→1.コベツカイシュウ→実行→在高で金種を選ぶ</span>
+                    </li>
+                    <li class="step">
+                      <span class="step-number">4</span>
+                      <span class="step-text">実行で10枚ずつ回収し、1束にまとめて棒金袋に入れる</span>
+                    </li>
+                  </ol>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
 
-                    <div class="alert alert-red">
-                        <svg class="alert-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#ef4444" stroke-width="2">
-                            <circle cx="12" cy="12" r="10"></circle>
-                            <line x1="12" y1="8" x2="12" y2="12"></line>
-                            <line x1="12" y1="16" x2="12.01" y2="16"></line>
-                        </svg>
-                        <p class="alert-text">お客様がレシートを持っていない場合は返品できません</p>
-                    </div>
+        <!-- レジ -->
+        <div class="content-card content-section" id="register">
+          <div class="content-title">
+            <span class="content-title-icon">🖥️</span>
+            レジ操作
+          </div>
 
-                    <ol class="steps">
-                        <li class="step">
-                            <span class="step-number">1</span>
-                            <span class="step-text">レジ横のバーコードをスキャン</span>
-                        </li>
-                        <li class="step">
-                            <span class="step-number">2</span>
-                            <span class="step-text">返品ボタンを押す</span>
-                        </li>
-                        <li class="step">
-                            <span class="step-number">3</span>
-                            <span class="step-text">お客様レシート下のバーコードをスキャン</span>
-                        </li>
-                        <li class="step">
-                            <span class="step-number">4</span>
-                            <span class="step-text">商品バーコードをスキャン(複数ある場合は×商品数→商品バーコード)</span>
-                        </li>
-                        <li class="step">
-                            <span class="step-number">5</span>
-                            <span class="step-text">金額→小計→合計の順でボタンを押す</span>
-                        </li>
-                        <li class="step">
-                            <span class="step-number">6</span>
-                            <span class="step-text">お金が出てくるためお客様へ渡す</span>
-                        </li>
-                    </ol>
-
-                    <div class="additional">
-                        <h3 class="additional-title">追加対応</h3>
-                        <div class="additional-items">
-                            <div class="additional-item">
-                                <h4 class="additional-item-title">レシートが必要な場合</h4>
-                                <p class="additional-item-content">リプリント操作を行う</p>
-                            </div>
-                            <div class="additional-item">
-                                <h4 class="additional-item-title">お客様都合での返品の場合</h4>
-                                <p class="additional-item-content">左上の引き出しにある返品用紙に住所・電話番号・名前を記入してもらう</p>
-                            </div>
-                            <div class="additional-item">
-                                <h4 class="additional-item-title">打ちミスの場合</h4>
-                                <p class="additional-item-content">返品用紙と同じところにあるもう1つの用紙も記入</p>
-                            </div>
-                            <div class="additional-item">
-                                <h4 class="additional-item-title">100均商品の返品</h4>
-                                <p class="additional-item-content">501→部門→100(円)→金額の順で入力</p>
-                            </div>
-                        </div>
-                    </div>
+          <div class="subsections">
+            <div class="subsection">
+              <h3 class="subsection-title">トレーニング</h3>
+              <div class="alert alert-red">
+                <div class="alert-icon">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="12" cy="12" r="10"></circle>
+                    <line x1="12" y1="8" x2="12" y2="12"></line>
+                    <line x1="12" y1="16" x2="12.01" y2="16"></line>
+                  </svg>
+                </div>
+                <p>前の人の責任者番号が抜かれていることをチェック</p>
+              </div>
+              <div class="items">
+                <div class="item">
+                  <h4 class="item-title">トレーニングモードの開始</h4>
+                  <ol class="steps">
+                    <li class="step">
+                      <span class="step-number">1</span>
+                      <span class="step-text">トレーニングボタンを押す</span>
+                    </li>
+                    <li class="step">
+                      <span class="step-number">2</span>
+                      <span class="step-text">担当者No(数字)を入力</span>
+                    </li>
+                    <li class="step">
+                      <span class="step-number">3</span>
+                      <span class="step-text">責任者Noボタンを押す</span>
+                    </li>
+                    <li class="step">
+                      <span class="step-number">4</span>
+                      <span class="step-text">この手順を行うとトレーニングモードになる</span>
+                    </li>
+                    <li class="step">
+                      <span class="step-number">5</span>
+                      <span class="step-text">閉じるボタンを押す</span>
+                    </li>
+                    <li class="step">
+                      <span class="step-number">6</span>
+                      <span class="step-text">担当者No(数字)を入力</span>
+                    </li>
+                    <li class="step">
+                      <span class="step-number">7</span>
+                      <span class="step-text">責任者Noボタンを押す</span>
+                    </li>
+                  </ol>
                 </div>
 
-                <div id="exchange" class="content-section hidden">
-                    <div class="content-title">
-                        <span class="icon">💴</span>
-                        <span>両替操作</span>
-                    </div>
-
-                    <ol class="steps">
-                        <li class="step">
-                            <span class="step-number">1</span>
-                            <span class="step-text">レジ横のバーコードをスキャン</span>
-                        </li>
-                        <li class="step">
-                            <span class="step-number">2</span>
-                            <span class="step-text">替ボタンを押す</span>
-                        </li>
-                        <li class="step">
-                            <span class="step-number">3</span>
-                            <span class="step-text">お金を入金(小銭→小銭口、お札→お札口)</span>
-                        </li>
-                        <li class="step">
-                            <span class="step-number">4</span>
-                            <span class="step-text">画面右下の入金開始ボタンを押す</span>
-                        </li>
-                        <li class="step">
-                            <span class="step-number">5</span>
-                            <span class="step-text">両替内容を確認(例:10,000円→5,000円札1枚+1,000円札5枚)</span>
-                        </li>
-                        <li class="step">
-                            <span class="step-number">6</span>
-                            <span class="step-text">確定ボタンを押す</span>
-                        </li>
-                        <li class="step">
-                            <span class="step-number">7</span>
-                            <span class="step-text">お客様とダブルチェック</span>
-                        </li>
-                    </ol>
-
-                    <div class="note">
-                        <svg class="note-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <circle cx="12" cy="12" r="10"></circle>
-                            <line x1="12" y1="16" x2="12" y2="12"></line>
-                            <line x1="12" y1="8" x2="12.01" y2="8"></line>
-                        </svg>
-                        <p class="note-text">両替レシートはレジの所に置いておく</p>
-                    </div>
+                <div class="item">
+                  <h4 class="item-title">トレーニングモード後の操作</h4>
+                  <ol class="steps">
+                    <li class="step">
+                      <span class="step-number">1</span>
+                      <span class="step-text">商品を入力</span>
+                    </li>
+                    <li class="step">
+                      <span class="step-number">2</span>
+                      <span class="step-text">小計→一括取り消し</span>
+                    </li>
+                  </ol>
                 </div>
 
-                <div id="payment" class="content-section hidden">
-                    <div class="content-title">
-                        <span class="icon">⚠️</span>
-                        <span>セルフレジトラブル対応</span>
+                <div class="item">
+                  <h4 class="item-title">終了時の操作</h4>
+                  <ol class="steps">
+                    <li class="step">
+                      <span class="step-number">1</span>
+                      <span class="step-text">責任者Noボタンを押す</span>
+                    </li>
+                    <li class="step">
+                      <span class="step-number">2</span>
+                      <span class="step-text">トレーニング</span>
+                    </li>
+                  </ol>
+                </div>
+              </div>
+            </div>
+
+            <div class="subsection">
+              <h3 class="subsection-title">商品券支払い</h3>
+              <ol class="steps">
+                <li class="step">
+                  <span class="step-number">1</span>
+                  <span class="step-text">いつも通り商品打ち小計を押す</span>
+                </li>
+                <li class="step">
+                  <span class="step-number">2</span>
+                  <span class="step-text">左側に支払選択画面があるためその画面で操作を行う</span>
+                </li>
+                <li class="step">
+                  <span class="step-number">3</span>
+                  <span class="step-text">例1. 100円クーポン券1枚の場合：100と打ち商品券ボタンを押す</span>
+                </li>
+                <li class="step">
+                  <span class="step-number">4</span>
+                  <span class="step-text">例2. 1000円クーポン券2枚の場合：2×1000と打ち商品券ボタンを押す</span>
+                </li>
+                <li class="step">
+                  <span class="step-number">5</span>
+                  <span class="step-text">再度小計→会計機へ案内を押し、お客様に会計をしてもらう</span>
+                </li>
+              </ol>
+              <div class="note">
+                <div class="note-icon">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="12" cy="12" r="10"></circle>
+                    <line x1="12" y1="16" x2="12" y2="12"></line>
+                    <line x1="12" y1="8" x2="12.01" y2="8"></line>
+                  </svg>
+                </div>
+                <p>1000円クーポン券の場合、裏にその日の日付＋店舗名(羽鳥店)を記入欄があるためそこに記入</p>
+              </div>
+            </div>
+
+            <div class="subsection">
+              <h3 class="subsection-title">画面訂正</h3>
+              <div class="items">
+                <div class="item">
+                  <h4 class="item-title">商品取消をする場合</h4>
+                  <ol class="steps">
+                    <li class="step">
+                      <span class="step-number">1</span>
+                      <span class="step-text">登録明細へをタッチし、取り消したい商品を選択 商品が表示される</span>
+                    </li>
+                    <li class="step">
+                      <span class="step-number">2</span>
+                      <span class="step-text">表示された商品の左下の取消を押してOKを押す</span>
+                    </li>
+                    <li class="step">
+                      <span class="step-number">3</span>
+                      <span class="step-text">商品に赤の二重線が引かれているか確認する</span>
+                    </li>
+                  </ol>
+                  <div class="note">
+                    <div class="note-icon">
+                      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="10"></circle>
+                        <line x1="12" y1="16" x2="12" y2="12"></line>
+                        <line x1="12" y1="8" x2="12.01" y2="8"></line>
+                      </svg>
                     </div>
+                    <p>取消済みの商品が表示されたまま責任者番号を抜きたい時：1度0円のままセルフレジに送ってレシート出して終了(一括取消でも可)</p>
+                  </div>
+                </div>
 
-                    <div class="sections">
-                        <div class="section">
-                            <h3 class="section-title">Gyomuca操作</h3>
-                            
-                            <div class="alert alert-red">
-                                <svg class="alert-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#ef4444" stroke-width="2">
-                                    <circle cx="12" cy="12" r="10"></circle>
-                                    <line x1="12" y1="8" x2="12" y2="12"></line>
-                                    <line x1="12" y1="16" x2="12.01" y2="16"></line>
-                                </svg>
-                                <p class="alert-text">レジ側でGyomucaを提示されても必ずセルフレジ側で読み取ってもらう</p>
-                            </div>
+                <div class="item">
+                  <h4 class="item-title">数量を変更する場合</h4>
+                  <ol class="steps">
+                    <li class="step">
+                      <span class="step-number">1</span>
+                      <span class="step-text">登録明細へをタッチし、数量変更をしたい商品を選択</span>
+                    </li>
+                    <li class="step">
+                      <span class="step-number">2</span>
+                      <span class="step-text">数量変更をタッチし、購入したい数量を入力してOKをタッチ</span>
+                    </li>
+                    <li class="step">
+                      <span class="step-number">3</span>
+                      <span class="step-text">数が訂正されてるか確認する</span>
+                    </li>
+                  </ol>
+                </div>
+              </div>
+            </div>
 
-                            <div class="items">
-                                <div class="item">
-                                    <h4 class="item-title">Gyomucaの残高が足りない場合</h4>
-                                    <ol class="steps">
-                                        <li class="step">
-                                            <span class="step-number">1</span>
-                                            <span class="step-text">1番レジの手前にあるチャージ機でチャージしてもらう</span>
-                                        </li>
-                                        <li class="step">
-                                            <span class="step-number">2</span>
-                                            <span class="step-text">チャージ後もう一度Gyomucaを使用し支払いしてもらう</span>
-                                        </li>
-                                    </ol>
-                                </div>
+            <div class="subsection">
+              <h3 class="subsection-title">保留/呼戻</h3>
+              <div class="alert alert-red">
+                <div class="alert-icon">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="12" cy="12" r="10"></circle>
+                    <line x1="12" y1="8" x2="12" y2="12"></line>
+                    <line x1="12" y1="16" x2="12.01" y2="16"></line>
+                  </svg>
+                </div>
+                <p>保留した場合は商品が残ったままになるので呼戻を忘れずに行う</p>
+              </div>
+              <ol class="steps">
+                <li class="step">
+                  <span class="step-number">1</span>
+                  <span class="step-text">保留呼戻を押すとお会計が保留になる</span>
+                </li>
+                <li class="step">
+                  <span class="step-number">2</span>
+                  <span class="step-text">もう一度保留呼戻を押す→お会計がレジに戻ってくる</span>
+                </li>
+              </ol>
+            </div>
 
-                                <div class="item">
-                                    <h4 class="item-title">レジでGyomucaを読み取ってしまい会計が完了しなかった場合</h4>
-                                    <ol class="steps">
-                                        <li class="step">
-                                            <span class="step-number">1</span>
-                                            <span class="step-text">一括取り消しでGyomuca読み取り状態をリセット</span>
-                                        </li>
-                                    </ol>
-                                </div>
-                            </div>
-                        </div>
+            <div class="subsection">
+              <h3 class="subsection-title">データ呼戻</h3>
+              <ol class="steps">
+                <li class="step">
+                  <span class="step-number">1</span>
+                  <span class="step-text">データ呼戻を押す</span>
+                </li>
+                <li class="step">
+                  <span class="step-number">2</span>
+                  <span class="step-text">呼び戻ししたい会計機を選択し実行を押して呼び戻す</span>
+                </li>
+              </ol>
+              <div class="note">
+                <div class="note-icon">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="12" cy="12" r="10"></circle>
+                    <line x1="12" y1="16" x2="12" y2="12"></line>
+                    <line x1="12" y1="8" x2="12.01" y2="8"></line>
+                  </svg>
+                </div>
+                <p>商品を追加したい場合、商品券を使用する場合などに使用</p>
+              </div>
+            </div>
+          </div>
+        </div>
 
-                        <div class="section">
-                            <h3 class="section-title">決済トラブル</h3>
-                            
-                            <div class="items">
-                                <div class="item">
-                                    <h4 class="item-title">タッチ決済が反応しない場合</h4>
-                                    <ol class="steps">
-                                        <li class="step">
-                                            <span class="step-number">1</span>
-                                            <span class="step-text">レジ横のバーコードをスキャン</span>
-                                        </li>
-                                        <li class="step">
-                                            <span class="step-number">2</span>
-                                            <span class="step-text">会計機の画面のエラー内容を見て順次対応</span>
-                                        </li>
-                                        <li class="step">
-                                            <span class="step-number">3</span>
-                                            <span class="step-text">左上のPOS会計ボタンを押す</span>
-                                        </li>
-                                        <li class="step">
-                                            <span class="step-number">4</span>
-                                            <span class="step-text">お客様に再度支払いをしてもらう</span>
-                                        </li>
-                                    </ol>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+        <!-- セルフレジ -->
+        <div class="content-card content-section" id="payment">
+          <div class="content-title">
+            <span class="content-title-icon">⚠️</span>
+            セルフレジ
+          </div>
 
-                    <div class="note">
-                        <svg class="note-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <circle cx="12" cy="12" r="10"></circle>
-                            <line x1="12" y1="16" x2="12" y2="12"></line>
-                            <line x1="12" y1="8" x2="12.01" y2="8"></line>
-                        </svg>
-                        <p class="note-text">レジランプの意味
+          <div class="alert alert-red">
+            <div class="alert-icon">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="10"></circle>
+                <line x1="12" y1="8" x2="12" y2="12"></line>
+                <line x1="12" y1="16" x2="12.01" y2="16"></line>
+              </svg>
+            </div>
+            <p>タッチタイプの支払い(IC、Gyomuca、QUICPay)と現金との併用が可能。クレカと現金の併用は不可</p>
+          </div>
+
+          <div class="subsections">
+            <div class="subsection">
+              <h3 class="subsection-title">Gyomuca操作</h3>
+              <div class="alert alert-red">
+                <div class="alert-icon">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="12" cy="12" r="10"></circle>
+                    <line x1="12" y1="8" x2="12" y2="12"></line>
+                    <line x1="12" y1="16" x2="12.01" y2="16"></line>
+                  </svg>
+                </div>
+                <p>レジ側でGyomucaを提示されても必ずセルフレジ側で読み取ってもらう</p>
+              </div>
+              <div class="items">
+                <div class="item">
+                  <h4 class="item-title">Gyomucaの残高が足りない場合</h4>
+                  <ol class="steps">
+                    <li class="step">
+                      <span class="step-number">1</span>
+                      <span class="step-text">1番レジの手前にあるチャージ機でチャージしてもらう</span>
+                    </li>
+                    <li class="step">
+                      <span class="step-number">2</span>
+                      <span class="step-text">チャージ後もう一度Gyomucaを使用し支払いしてもらう</span>
+                    </li>
+                  </ol>
+                </div>
+
+                <div class="item">
+                  <h4 class="item-title">レジでGyomucaを読み取ってしまい会計が完了しなかった場合</h4>
+                  <ol class="steps">
+                    <li class="step">
+                      <span class="step-number">1</span>
+                      <span class="step-text">一括取り消しでGyomuca読み取り状態をリセット</span>
+                    </li>
+                  </ol>
+                </div>
+              </div>
+            </div>
+
+            <div class="subsection">
+              <h3 class="subsection-title">決済トラブル</h3>
+              <div class="items">
+                <div class="item">
+                  <h4 class="item-title">タッチ決済が反応しない場合</h4>
+                  <ol class="steps">
+                    <li class="step">
+                      <span class="step-number">1</span>
+                      <span class="step-text">レジ横のバーコードをスキャン</span>
+                    </li>
+                    <li class="step">
+                      <span class="step-number">2</span>
+                      <span class="step-text">会計機の画面のエラー内容を見て順次対応</span>
+                    </li>
+                    <li class="step">
+                      <span class="step-number">3</span>
+                      <span class="step-text">左上のPOS会計ボタンを押す</span>
+                    </li>
+                    <li class="step">
+                      <span class="step-number">4</span>
+                      <span class="step-text">お客様に再度支払いをしてもらう</span>
+                    </li>
+                  </ol>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="note note-gray">
+            <div class="note-icon">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="10"></circle>
+                <line x1="12" y1="16" x2="12" y2="12"></line>
+                <line x1="12" y1="8" x2="12.01" y2="8"></line>
+              </svg>
+            </div>
+            <p>レジランプの意味
 黄色点灯：釣銭補充
 黄色点滅：レシート補充
 赤色点灯：レシート空
 赤色点滅：店員呼び出し</p>
-                    </div>
-                </div>
-            </div>
+          </div>
         </div>
+      </div>
     </div>
+  </div>
 
-    <script src="script.js"></script>
+  <script src="script.js"></script>
 </body>
 </html>
