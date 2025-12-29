@@ -1,19 +1,22 @@
-function showSection(sectionId, button) {
-    // すべてのセクションを非表示
-    const sections = document.querySelectorAll('.content-section');
-    sections.forEach(section => {
-        section.classList.add('hidden');
-    });
+// ナビゲーションボタンのクリックイベント
+document.addEventListener('DOMContentLoaded', function() {
+  const navButtons = document.querySelectorAll('.nav-button');
+  const contentSections = document.querySelectorAll('.content-section');
 
-    // すべてのボタンのactiveクラスを削除
-    const buttons = document.querySelectorAll('.nav-button');
-    buttons.forEach(btn => {
-        btn.classList.remove('active');
+  navButtons.forEach(button => {
+    button.addEventListener('click', function() {
+      const targetSection = this.getAttribute('data-section');
+      
+      // すべてのボタンとセクションから active クラスを削除
+      navButtons.forEach(btn => btn.classList.remove('active'));
+      contentSections.forEach(section => section.classList.remove('active'));
+      
+      // クリックされたボタンと対応するセクションに active クラスを追加
+      this.classList.add('active');
+      document.getElementById(targetSection).classList.add('active');
+      
+      // ページトップにスクロール（モバイル用）
+      window.scrollTo({ top: 0, behavior: 'smooth' });
     });
-
-    // 選択されたセクションを表示
-    document.getElementById(sectionId).classList.remove('hidden');
-    
-    // 選択されたボタンにactiveクラスを追加
-    button.classList.add('active');
-}
+  });
+});
